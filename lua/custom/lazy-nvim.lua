@@ -29,6 +29,9 @@ local plugins = {
         "feline-nvim/feline.nvim"
     },
     {
+        "norcalli/nvim-colorizer.lua"
+    },
+    {
         "kdheepak/lazygit.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
@@ -72,6 +75,14 @@ local plugins = {
     },
     {
         "terrortylor/nvim-comment"
+    },
+    {
+"kevinhwang91/nvim-ufo",
+        dependencies = "kevinhwang91/promise-async"
+    },
+    {
+        "codota/tabnine-nvim",
+        build = "./dl_binaries.sh"
     },
     {
         'VonHeikemen/lsp-zero.nvim',
