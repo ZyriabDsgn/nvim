@@ -16,8 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     {
         "projekt0n/github-nvim-theme",
-        lazy=false,
-        priority=1000,
+        lazy = false,
+        priority = 1000,
         config = function()
             vim.cmd("colorscheme github_dark_colorblind")
         end,
@@ -26,10 +26,16 @@ local plugins = {
         "xiyaowong/transparent.nvim"
     },
     {
-        "feline-nvim/feline.nvim"
+        "nvim-lualine/lualine.nvim"
     },
     {
         "norcalli/nvim-colorizer.lua"
+    },
+    {
+        "windwp/nvim-autopairs"
+    },
+    {
+        "windwp/nvim-ts-autotag"
     },
     {
         "kdheepak/lazygit.nvim",
@@ -40,7 +46,8 @@ local plugins = {
         event = "VeryLazy"
     },
     {
-        "nvim-telescope/telescope.nvim", tag = "0.1.2",
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     {
@@ -77,7 +84,7 @@ local plugins = {
         "terrortylor/nvim-comment"
     },
     {
-"kevinhwang91/nvim-ufo",
+        "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async"
     },
     {
@@ -85,18 +92,21 @@ local plugins = {
         build = "./dl_binaries.sh"
     },
     {
+        "lukas-reineke/lsp-format.nvim"
+    },
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
         dependencies = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},             -- Required
-            {'williamboman/mason.nvim'},           -- Optional
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            { 'neovim/nvim-lspconfig' },             -- Required
+            { 'williamboman/mason.nvim' },           -- Optional
+            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},     -- Required
-            {'hrsh7th/cmp-nvim-lsp'}, -- Required
-            {'L3MON4D3/LuaSnip'},     -- Required
+            { 'hrsh7th/nvim-cmp' },     -- Required
+            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+            { 'L3MON4D3/LuaSnip' },     -- Required
         }
     },
 
@@ -121,7 +131,7 @@ local plugins = {
         cmd = { "TSUpdateSync" },
         keys = {
             { "<c-space>", desc = "Increment selection" },
-            { "<bs>", desc = "Decrement selection", mode = "x" },
+            { "<bs>",      desc = "Decrement selection", mode = "x" },
         },
         opts = {
             highlight = { enable = true },
