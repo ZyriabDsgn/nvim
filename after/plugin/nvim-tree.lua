@@ -16,6 +16,7 @@ nvim_tree.setup({
     },
     renderer = {
         group_empty = true,
+        full_name = true,
         indent_markers = {
             enable = true
         },
@@ -26,5 +27,8 @@ nvim_tree.setup({
     },
     modified = {
         enable = true
+    },
+    view = {
+        width = {}
     }
 })
