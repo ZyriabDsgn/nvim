@@ -11,7 +11,7 @@ lsp.ensure_installed({
     "clangd", -- C
     "cssls",
     "eslint",
-    -- "gopls",
+    "gopls",
     "graphql",
     "html",
     "jsonls",
