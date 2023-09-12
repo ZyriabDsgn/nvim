@@ -92,7 +92,7 @@ local plugins = {
         build = "./dl_binaries.sh"
     },
     {
-        "lukas-reineke/lsp-format.nvim"
+        "mhartington/formatter.nvim"
     },
     {
         'VonHeikemen/lsp-zero.nvim',

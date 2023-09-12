@@ -1,5 +1,4 @@
 local lsp = require("lsp-zero")
-local lsp_format = require("lsp-format")
 local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
@@ -12,7 +11,7 @@ lsp.ensure_installed({
     "clangd", -- C
     "cssls",
     "eslint",
-    "gopls",
+    -- "gopls",
     "graphql",
     "html",
     "jsonls",
@@ -88,8 +87,8 @@ lsp.on_attach(function(client, bufnr)
     -- Rename
     vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
 
-    -- Format file
-    vim.keymap.set("n", "<F3>", function() vim.lsp.buf.format() end, opts)
+    -- Format file -- See `formatter.lua` (`<leader>fm`) for custom formatting
+    -- vim.keymap.set("n", "<F3>", function() vim.lsp.buf.format() end, opts)
 
     -- View code actions (also <F4>)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
