@@ -35,8 +35,15 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 })
 
+-- HACK: seems to be the only way to
+-- successfully map the completion trigger
+vim.keymap.set("n", "<C-Space>", function()
+    cmp.mapping.complete()
+end)
+
 cmp_mappings["<Tab>"] = nil
 cmp_mappings["<S-Tab>"] = nil
+
 
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
@@ -75,7 +82,8 @@ lsp.on_attach(function(client, bufnr)
     -- View diagnostics (also `gl`)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 
-    -- Display signature info about symbol (also `gs`)
+    -- Display documentation if any (also `gs`)
+    vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
     -- Go to next diagnostic
@@ -99,20 +107,10 @@ lsp.on_attach(function(client, bufnr)
     -- <Ctrl-e>: Cancel completion.
     -- <Down>: Navigate to the next item on the list.
     -- <Up>: Navigate to previous item on the list.
-    -- <Ctrl-n>: If the completion menu is visible, go to the next item. Else, trigger completion menu.
-    -- <Ctrl-p>: If the completion menu is visible, go to the previous item. Else, trigger completion menu.
+    -- <Ctrl-n>: If the completion menu is visible, go to the next item.
+    -- <Ctrl-p>: If the completion menu is visible, go to the previous item.
     -- <Ctrl-d>: Scroll down the documentation window.
     -- <Ctrl-u>: Scroll up the documentation window.
-
-
-    -- Format on save
-    -- synchronous
-    -- lsp.buffer_autoformat()
-
-    -- asynchronous
-    -- if client.supports_method('textDocument/formatting') then
-    --     require('lsp-format').on_attach(client)
-    -- end
 end)
 
 lsp.setup()
