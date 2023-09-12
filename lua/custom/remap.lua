@@ -4,7 +4,10 @@ vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>ft", vim.cmd.Ex)
 
 -- Toggles quickfix
-vim.keymap.set("n", "<leader>qf", Toggle_quickfix)
+vim.keymap.set("n", "<leader>qf", function()
+	Toggle_quickfix()
+end,
+{ silent = true })
 
 -- Moving lines around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
