@@ -3,9 +3,8 @@ vim.g.mapleader = " "
 -- Opens file explorer
 -- vim.keymap.set("n", "<leader>ft", vim.cmd.Ex)
 
--- Opens quickfix
--- TODO implement quickfix stuff
-vim.keymap.set("n", "<leader>qf", function()end)
+-- Toggles quickfix
+vim.keymap.set("n", "<leader>qf", Toggle_quickfix)
 
 -- Moving lines around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
