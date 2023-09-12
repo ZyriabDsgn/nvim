@@ -108,7 +108,7 @@ lsp.on_attach(function(client, bufnr)
 
     -- Format on save
     -- synchronous
-    lsp.buffer_autoformat()
+    -- lsp.buffer_autoformat()
 
     -- asynchronous
     -- if client.supports_method('textDocument/formatting') then
