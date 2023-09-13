@@ -24,3 +24,6 @@ vim.opt.updatetime = 50
 
 vim.opt.cursorcolumn = true
 vim.opt.colorcolumn = "80"
+
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
