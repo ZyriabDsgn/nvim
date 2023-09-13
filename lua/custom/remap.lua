@@ -14,6 +14,10 @@ vim.keymap.set("n", "<leader>qf", function()
     end,
     { silent = true })
 
+-- Heavenly switcharoo
+vim.keymap.set("n", "0", "^", {noremap = true})
+vim.keymap.set("n", "^", "0", {noremap = true})
+
 -- Moving lines around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
