@@ -3,6 +3,9 @@ local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
 
+-- Fixes undefined global "vim"
+lsp.nvim_workspace()
+
 lsp.ensure_installed({
     "tsserver", -- TS/JS
     "arduino_language_server",
@@ -23,8 +26,17 @@ lsp.ensure_installed({
     "terraformls",
 })
 
--- Fixes undefined global "vim"
-lsp.nvim_workspace()
+lsp.highlight = { enable = true }
+lsp.indent = { enable = true }
+lsp.incremental_selection = {
+    enable = true,
+    keymaps = {
+        init_selection = "<C-space>",
+        node_incremental = "<C-space>",
+        scope_incremental = false,
+        node_decremental = "<bs>",
+    },
+}
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
