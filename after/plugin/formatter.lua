@@ -1,7 +1,11 @@
 local formatter = require("formatter")
 -- local util = require("formatter.util")
 
-local function prettier_format()
+local function fallback()
+    vim.lsp.buf.format()
+end
+
+local function prettier()
     return {
         exe = "prettier",
         args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
@@ -25,13 +29,16 @@ formatter.setup({
 
     filetype = {
         typescript = {
-            prettier_format
+            prettier
         },
         ['typescript.tsx'] = {
-            prettier_format
+            prettier
         },
         javascript = {
-            prettier_format
+            prettier
+        },
+        ["*"] = {
+            fallback
         }
     }
 })
