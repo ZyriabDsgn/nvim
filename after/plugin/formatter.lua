@@ -31,14 +31,21 @@ vim.keymap.set("n", "<leader>fm", function() vim.cmd("Format") end)
 vim.keymap.set("n", "<leader>imp", organize_imports)
 
 -- Format on save
--- TODO: replace this with nvim API (lua)
--- also, if TS/JS/TSX/JSX sort imports
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-augroup END
-]], false)
+vim.api.nvim_create_augroup('format_autogroup', {clear = true})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = "format_autogroup",
+    command = "FormatWrite"
+})
+
+-- TODO: remove this once the above command will be tested on enough filetypes
+-- vim.api.nvim_exec([[
+-- augroup FormatAutogroup
+--   autocmd!
+--   autocmd BufWritePost * FormatWrite
+-- augroup END
+-- ]], false)
+
 
 formatter.setup({
     logging = true,
