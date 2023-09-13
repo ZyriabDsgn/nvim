@@ -12,6 +12,7 @@ vim.keymap.set("n", "<leader>td", function()
     vim.cmd("TodoTrouble")
 end)
 
+-- FIXME: need to debug the RegEx
 todo_comments.setup({
     highlight = {
         pattern = [[.*<(KEYWORDS)\s*]]
