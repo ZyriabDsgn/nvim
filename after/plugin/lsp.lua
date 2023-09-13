@@ -105,10 +105,16 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 
     -- Rename
-    vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
+    -- vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 
     -- Format file -- See `formatter.lua` (`<leader>fm`) for custom formatting
     -- vim.keymap.set("n", "<F3>", function() vim.lsp.buf.format() end, opts)
+    vim.keymap.set("n", "<F3>", function()
+        vim.notify("Use <leader>fm to properly format files!", vim.log.levels.WARN, {
+            title = "Format",
+        })
+    end, opts)
 
     -- View code actions (also <F4>)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
