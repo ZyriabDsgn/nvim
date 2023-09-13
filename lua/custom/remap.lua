@@ -1,18 +1,22 @@
 vim.g.mapleader = " "
 
--- Opens file explorer
+-- Opens file explorer -- See nvim-tree.lua
 -- vim.keymap.set("n", "<leader>ft", vim.cmd.Ex)
 
 -- Toggles quickfix
 vim.keymap.set("n", "<leader>qf", function()
-	Toggle_quickfix()
-end,
-{ silent = true })
+        if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")) == 1
+        then
+            vim.cmd("copen")
+        else
+            vim.cmd("cclose")
+        end
+    end,
+    { silent = true })
 
 -- Moving lines around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
-
 
 -- Cursor centering
 vim.keymap.set("n", "J", "mzJ`z")
