@@ -16,6 +16,8 @@ end
 vim.keymap.set("n", "<leader>fm", function() vim.cmd("Format") end)
 
 -- Format on save
+-- TODO: replace this with nvim API (lua)
+-- also, if TS/JS/TSX/JSX sort imports
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
@@ -29,6 +31,9 @@ formatter.setup({
 
     filetype = {
         typescript = {
+            prettier
+        },
+        typescriptreact = {
             prettier
         },
         ['typescript.tsx'] = {
