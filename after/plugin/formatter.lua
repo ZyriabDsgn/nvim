@@ -13,7 +13,22 @@ local function prettier()
     }
 end
 
+local function organize_imports()
+    local filetype = vim.bo.filetype
+
+    if filetype == "typescript" or filetype == "typescriptreact"
+    then
+        local params = {
+            command = "_typescript.organizeImports",
+            arguments = { vim.api.nvim_buf_get_name(0) },
+            title = ""
+        }
+        vim.lsp.buf.execute_command(params)
+    end
+end
+
 vim.keymap.set("n", "<leader>fm", function() vim.cmd("Format") end)
+vim.keymap.set("n", "<leader>imp", organize_imports)
 
 -- Format on save
 -- TODO: replace this with nvim API (lua)
