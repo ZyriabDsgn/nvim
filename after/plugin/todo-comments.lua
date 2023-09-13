@@ -11,13 +11,12 @@ end)
 vim.keymap.set("n", "<leader>td", function()
     vim.cmd("TodoTrouble")
 end)
--- TODO(test)
 
 todo_comments.setup({
-highlight = {
+    highlight = {
         pattern = [[.*<(KEYWORDS)\s*]]
     },
-search = {
+    search = {
         pattern = [[\b(KEYWORDS)]]
     }
 })
