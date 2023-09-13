@@ -1,6 +1,14 @@
 local formatter = require("formatter")
 -- local util = require("formatter.util")
 
+local function prettier_format()
+    return {
+        exe = "prettier",
+        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
+        stdin = true
+    }
+end
+
 vim.keymap.set("n", "<leader>fm", function() vim.cmd("Format") end)
 
 -- Format on save
@@ -17,13 +25,13 @@ formatter.setup({
 
     filetype = {
         typescript = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-                    stdin = true
-                }
-            end
+            prettier_format
+        },
+        ['typescript.tsx'] = {
+            prettier_format
+        },
+        javascript = {
+            prettier_format
         }
     }
 })
