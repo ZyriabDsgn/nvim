@@ -1,7 +1,46 @@
 local dap = require("dap")
+local utils = require("dap.utils")
 local dapui = require("dapui")
+local widgets = require("dap.ui.widgets")
 local dap_vscode_js = require("dap-vscode-js")
 
+-- TODO: test and remap dap keybinds
+vim.keymap.set('n', '<F5>', function() dap.continue() end)
+vim.keymap.set('n', '<leader><F5>', function() dap.terminate() end)
+vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() dap.set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+
+vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
+    widgets.hover()
+end)
+vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
+    widgets.preview()
+end)
+vim.keymap.set('n', '<Leader>df', function()
+    widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<Leader>ds', function()
+    widgets.centered_float(widgets.scopes)
+end)
+
+vim.keymap.set("n", "<leader>du", function()
+    dapui.toggle()
+end)
+
+-- Events/listeners to trigger UI
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
 
 dapui.setup()
 
@@ -35,6 +74,12 @@ if not dap.adapters["pwa-node"] then
 end
 
 for _, language in ipairs({ "typescript", "javascript" }) do
+    local node_client = "node"
+
+    if language == "typescript" then
+        node_client = "ts-node"
+    end
+
     dap.configurations[language] = {
         -- NODE
         {
@@ -42,13 +87,17 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             request = "launch",
             name = "Launch file",
             program = "${file}",
+            runtimeExecutable = node_client,
+            -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
         },
         {
             type = "pwa-node",
             request = "attach",
             name = "Attach",
-            processId = require 'dap.utils'.pick_process,
+            processId = utils.pick_process,
+            runtimeExecutable = node_client,
+            outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
         },
         -- ENDOF NODE
@@ -58,7 +107,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             request = "launch",
             name = "Debug Jest Tests",
             -- trace = true, -- include debugger info
-            runtimeExecutable = "node",
+            runtimeExecutable = node_client,
             runtimeArgs = {
                 "./node_modules/jest/bin/jest.js",
                 "--runInBand",
@@ -66,6 +115,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             rootPath = "${workspaceFolder}",
             cwd = "${workspaceFolder}",
             console = "integratedTerminal",
+            outFiles = { "${workspaceFolder}/dist/**/*.js" },
             internalConsoleOptions = "neverOpen",
         }
         -- ENDOF JEST
