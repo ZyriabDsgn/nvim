@@ -20,6 +20,7 @@ local plugins = {
         priority = 1000,
         config = function()
             vim.cmd("colorscheme github_dark_colorblind")
+            -- vim.cmd("colorscheme github_light_colorblind")
         end,
     },
     {
@@ -53,11 +54,11 @@ local plugins = {
         tag = "0.1.2",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-live-grep-args.nvim" 
+            "nvim-telescope/telescope-live-grep-args.nvim"
         },
         config = function()
-    	require("telescope").load_extension("live_grep_args")
-  	end
+            require("telescope").load_extension("live_grep_args")
+        end
     },
     {
         "theprimeagen/harpoon"
@@ -96,6 +97,27 @@ local plugins = {
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async"
     },
+    -- DEBUGGER
+    {
+        "mfussenegger/nvim-dap"
+    },
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = "mfussenegger/nvim-dap",
+    },
+    {
+        "mxsdev/nvim-dap-vscode-js",
+        dependencies = "mfussenegger/nvim-dap",
+        opts = {
+            debugger_path = vim.fn.stdpath "data" .. "/lazy/vscode-js-debug",
+            adapters = { "pwa-node", "pwa-chrome" },
+        }
+    },
+    {
+        "microsoft/vscode-js-debug",
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+    },
+    -- ENDOF DEBUGGER
     {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh"
@@ -108,8 +130,14 @@ local plugins = {
         branch = 'v2.x',
         dependencies = {
             -- LSP Support
-            { 'neovim/nvim-lspconfig' },             -- Required
-            { 'williamboman/mason.nvim' },           -- Optional
+            { 'neovim/nvim-lspconfig' }, -- Required
+            {
+                'williamboman/mason.nvim',
+                opts = function(_, opts)
+                    opts.ensure_installed = opts.ensure_installed or {}
+                    table.insert(opts.ensure_installed, "js-debug-adapter")
+                end,
+            },                                       -- Optional
             { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
