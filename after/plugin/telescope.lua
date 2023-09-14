@@ -21,3 +21,6 @@ end)
 vim.keymap.set("n", "<leader>nt", function()
     telescope.extensions.notify.notify()
 end)
+
+telescope.setup()
+require("telescope").load_extension("live_grep_args")

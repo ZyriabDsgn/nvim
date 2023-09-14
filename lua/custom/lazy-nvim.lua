@@ -53,11 +53,16 @@ local plugins = {
         tag = "0.1.2",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-live-grep-args.nvim" 
+            "nvim-telescope/telescope-live-grep-args.nvim",
+            -- "natecraddock/telescope-zf-native.nvim",
+            -- "nvim-telescope/telescope-ui-select.nvim"
         },
         config = function()
-    	require("telescope").load_extension("live_grep_args")
-  	end
+            -- -- telescope.load_extension("fzf")
+            -- require("telescope").load_extension("zf-native")
+            -- telescope.load_extension("ui-select")
+            -- telescope.load_extension("live_grep_args")
+        end
     },
     {
         "theprimeagen/harpoon"
