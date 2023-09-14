@@ -8,7 +8,7 @@ custom_theme.insert.a.bg = "#ec8e2c"
 
 lualine.setup({
     options = {
-        theme = custom_theme
+        theme = custom_theme,
+        ignore_focus = { "NvimTree" },
     }
 })
-
