@@ -39,7 +39,7 @@ local plugins = {
         }
     },
     {
-        "nvim-telescope/telescope-ui-select.nvim"
+        "stevearc/dressing.nvim"
     },
     -- EDITOR UPGRADES
     {
