@@ -1,4 +1,5 @@
 local lsp = require("lsp-zero")
+local cmp = require("cmp")
 -- local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
@@ -20,7 +21,7 @@ lsp.ensure_installed({
     "jsonls",
     "lua_ls",
     "marksman", -- Markdown
-    -- "sqlls",
+    "sqlls",
     "taplo",    -- TOML
     "tailwindcss",
     "terraformls",
@@ -38,13 +39,26 @@ lsp.incremental_selection = {
     },
 }
 
-local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
     ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
     ["<C-Space>"] = cmp.mapping.complete(),
+})
+
+-- FIXME: Can't get this working in Lua
+
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "sql", "mysql", "plsql" },
+    callback = function()
+        cmp.setup.buffer({
+            sources = {
+                { name = "vim-dadbod-completion" }
+            }
+        })
+    end
 })
 
 -- HACK: seems to be the only way to
@@ -62,13 +76,13 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
+    suggest_lsp_servers = true,
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    -- Some are actual remaps but it's mostly to be used as a reference
+    -- Some are actual remaps but it"s mostly to be used as a reference
 
     -- Hover
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)

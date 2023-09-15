@@ -14,6 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    -- UI
     {
         "projekt0n/github-nvim-theme",
         lazy = false,
@@ -30,49 +31,20 @@ local plugins = {
         "nvim-lualine/lualine.nvim"
     },
     {
-        "norcalli/nvim-colorizer.lua"
-    },
-    {
-        "windwp/nvim-autopairs"
-    },
-    {
-        "windwp/nvim-ts-autotag"
-    },
-    {
-        "kdheepak/lazygit.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-        "f-person/git-blame.nvim",
-        event = "VeryLazy"
-    },
-    {
-        "airblade/vim-gitgutter"
-    },
-    {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.2",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-live-grep-args.nvim"
-        },
-    },
-    {
-        "theprimeagen/harpoon"
-    },
-    {
-        "nvim-tree/nvim-tree.lua"
-    },
-    {
-        "mbbill/undotree"
-    },
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         }
+    },
+    -- EDITOR UPGRADES
+    {
+        "codota/tabnine-nvim",
+        build = "./dl_binaries.sh"
+    },
+    {
+        "mhartington/formatter.nvim"
     },
     {
         "folke/trouble.nvim",
@@ -94,6 +66,62 @@ local plugins = {
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async"
     },
+    {
+        "norcalli/nvim-colorizer.lua"
+    },
+    {
+        "windwp/nvim-autopairs"
+    },
+    {
+        "windwp/nvim-ts-autotag"
+    },
+    -- DATABASE
+    {
+        "tpope/vim-dadbod"
+    },
+    {
+        "pbogut/vim-dadbod-ssh"
+    },
+    {
+        "kristijanhusak/vim-dadbod-completion"
+    },
+    {
+        "kristijanhusak/vim-dadbod-ui",
+        dependencies = {
+            { "tpope/vim-dadbod",                     lazy = true },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "plsql" }, lazy = true },
+        },
+    },
+    -- GIT
+    {
+        "kdheepak/lazygit.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "f-person/git-blame.nvim",
+        event = "VeryLazy"
+    },
+    {
+        "airblade/vim-gitgutter"
+    },
+    -- NAVIGATION
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-live-grep-args.nvim"
+        },
+    },
+    {
+        "theprimeagen/harpoon"
+    },
+    {
+        "nvim-tree/nvim-tree.lua"
+    },
+    {
+        "mbbill/undotree"
+    },
     -- DEBUGGER
     {
         "mfussenegger/nvim-dap"
@@ -114,40 +142,33 @@ local plugins = {
         "microsoft/vscode-js-debug",
         build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
     },
-    -- ENDOF DEBUGGER
+    -- LSP
     {
-        "codota/tabnine-nvim",
-        build = "./dl_binaries.sh"
-    },
-    {
-        "mhartington/formatter.nvim"
-    },
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v2.x",
         dependencies = {
             -- LSP Support
-            { 'neovim/nvim-lspconfig' }, -- Required
+            { "neovim/nvim-lspconfig" }, -- Required
             {
-                'williamboman/mason.nvim',
+                "williamboman/mason.nvim",
                 opts = function(_, opts)
                     opts.ensure_installed = opts.ensure_installed or {}
                     table.insert(opts.ensure_installed, "js-debug-adapter")
                 end,
             },                                       -- Optional
-            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+            { "williamboman/mason-lspconfig.nvim" }, -- Optional
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },     -- Required
-            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-            { 'L3MON4D3/LuaSnip' },     -- Required
+            { "hrsh7th/nvim-cmp" },     -- Required
+            { "hrsh7th/cmp-nvim-lsp" }, -- Required
+            { "L3MON4D3/LuaSnip" },     -- Required
         }
     },
-
+    -- TREESITTER
     -- TODO: move config to its dedicated file in nvim/after/treesitter.lua
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false, -- last release is way too old and doesn't work on Windows
+        version = false, -- last release is way too old and doesn"t work on Windows
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
