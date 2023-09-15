@@ -13,4 +13,6 @@ local autotag = require("nvim-ts-autotag")
 --     }
 -- )
 
-autotag.setup()
+autotag.setup({
+    enable_colse_on_slash = false
+})
