@@ -15,9 +15,10 @@ end)
 -- FIXME: need to debug the RegEx
 todo_comments.setup({
     highlight = {
-        pattern = [[.*<(KEYWORDS)\s*]]
+        pattern = [[.*<(KEYWORDS)\s*(:|\()]]
+
     },
     search = {
-        pattern = [[\b(KEYWORDS)]]
+        pattern = [[\b(KEYWORDS)\s*(:|\()]]
     }
 })
