@@ -33,13 +33,13 @@ end)
 
 -- Events/listeners to trigger UI
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+    dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
 
 dapui.setup()
@@ -83,18 +83,31 @@ for _, language in ipairs({ "typescript", "javascript" }) do
     dap.configurations[language] = {
         -- NODE
         {
+            name = "Launch file",
             type = "pwa-node",
             request = "launch",
-            name = "Launch file",
             program = "${file}",
             runtimeExecutable = node_client,
             -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
         },
+        -- FIXME: not working DUH
         {
+            name = "Run script: start:backend",
+            type = "pwa-node",
+            request = "launch",
+            runtimeExecutable = "npm",
+            runtimeArgs = {
+                "run",
+                "start:backend"
+            },
+            -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
+            cwd = "${workspaceFolder}",
+        },
+        {
+            name = "Attach",
             type = "pwa-node",
             request = "attach",
-            name = "Attach",
             processId = utils.pick_process,
             runtimeExecutable = node_client,
             outFiles = { "${workspaceFolder}/dist/**/*.js" },
@@ -103,9 +116,9 @@ for _, language in ipairs({ "typescript", "javascript" }) do
         -- ENDOF NODE
         -- JEST
         {
+            name = "Debug Jest Tests",
             type = "pwa-node",
             request = "launch",
-            name = "Debug Jest Tests",
             -- trace = true, -- include debugger info
             runtimeExecutable = node_client,
             runtimeArgs = {
