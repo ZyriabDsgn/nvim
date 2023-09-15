@@ -38,6 +38,9 @@ local plugins = {
             "rcarriga/nvim-notify",
         }
     },
+    {
+        "nvim-telescope/telescope-ui-select.nvim"
+    },
     -- EDITOR UPGRADES
     {
         "codota/tabnine-nvim",
@@ -110,7 +113,8 @@ local plugins = {
         tag = "0.1.2",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-live-grep-args.nvim"
+            "nvim-telescope/telescope-live-grep-args.nvim",
+            "nvim-telescope/telescope-ui-select.nvim"
         },
     },
     {
