@@ -23,6 +23,7 @@ lsp.ensure_installed({
     "marksman", -- Markdown
     "sqlls",
     "taplo",    -- TOML
+    "yamlls",
     "tailwindcss",
     "terraformls",
 })
