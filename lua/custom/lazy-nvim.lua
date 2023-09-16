@@ -14,6 +14,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    -- DEV
+    "folke/neodev.nvim",
+    {
+        dir = "/mnt/DATA/dev/plugins/npm-debug.nvim"
+    },
     -- UI
     {
         "projekt0n/github-nvim-theme",
@@ -114,7 +119,6 @@ local plugins = {
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-live-grep-args.nvim",
-            "nvim-telescope/telescope-ui-select.nvim"
         },
     },
     {

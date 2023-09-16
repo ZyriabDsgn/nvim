@@ -1,11 +1,13 @@
 local lsp = require("lsp-zero")
 local cmp = require("cmp")
+local neodev = require("neodev")
 -- local lspconfig = require("lspconfig")
 
 lsp.preset("recommended")
 
 -- Fixes undefined global "vim"
-lsp.nvim_workspace()
+-- lsp.nvim_workspace()
+neodev.setup()
 
 lsp.ensure_installed({
     "tsserver", -- TS/JS
@@ -47,8 +49,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
     ["<C-Space>"] = cmp.mapping.complete(),
 })
-
--- FIXME: Can't get this working in Lua
 
 
 vim.api.nvim_create_autocmd("FileType", {
