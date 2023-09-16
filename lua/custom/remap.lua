@@ -1,3 +1,5 @@
+local quickfix_utils = require("utils.quickfix")
+
 vim.g.mapleader = " "
 
 -- Opens file explorer -- See nvim-tree.lua
@@ -5,12 +7,7 @@ vim.g.mapleader = " "
 
 -- Toggles quickfix
 vim.keymap.set("n", "<leader>qf", function()
-        if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")) == 1
-        then
-            vim.cmd("copen")
-        else
-            vim.cmd("cclose")
-        end
+        quickfix_utils.toggle()
     end,
     { silent = true })
 
