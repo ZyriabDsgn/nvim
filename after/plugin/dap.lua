@@ -14,17 +14,8 @@ vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
 vim.keymap.set('n', '<Leader>B', function() dap.set_breakpoint() end)
 vim.keymap.set('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 
-vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
+vim.keymap.set({ 'n', 'v' }, '<Leader>dk', function()
     widgets.hover()
-end)
-vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
-    widgets.preview()
-end)
-vim.keymap.set('n', '<Leader>df', function()
-    widgets.centered_float(widgets.frames)
-end)
-vim.keymap.set('n', '<Leader>ds', function()
-    widgets.centered_float(widgets.scopes)
 end)
 
 vim.keymap.set("n", "<leader>du", function()
@@ -91,15 +82,28 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
         },
-        -- FIXME: not working DUH
+        -- TODO: dev lua script to populate this cleanly
+        -- without taking all script
         {
             name = "Run script: start:backend",
             type = "pwa-node",
             request = "launch",
             runtimeExecutable = "npm",
             runtimeArgs = {
-                "run",
+                "run-script",
                 "start:backend"
+            },
+            -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
+            cwd = "${workspaceFolder}",
+        },
+        {
+            name = "Run script: start",
+            type = "pwa-node",
+            request = "launch",
+            runtimeExecutable = "npm",
+            runtimeArgs = {
+                "run-script",
+                "start"
             },
             -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
