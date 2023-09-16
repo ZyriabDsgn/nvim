@@ -77,7 +77,7 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = true,
+    suggest_lsp_servers = false,
 })
 
 lsp.on_attach(function(_, bufnr)
