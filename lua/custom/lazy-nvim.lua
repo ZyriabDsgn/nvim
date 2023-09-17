@@ -49,6 +49,18 @@ local plugins = {
     },
     -- EDITOR UPGRADES
     {
+        "anthony-halim/bible-verse.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        opts = {
+            diatheke = {
+                translation = "KJV",
+            },
+        },
+        config = true,
+    },
+    {
         "codota/tabnine-nvim",
         build = "./dl_binaries.sh"
     },
