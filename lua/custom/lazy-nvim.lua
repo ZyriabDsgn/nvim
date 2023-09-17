@@ -17,7 +17,8 @@ local plugins = {
     -- DEV
     "folke/neodev.nvim",
     {
-        dir = "/mnt/DATA/dev/plugins/npm-debug.nvim"
+        "ZyriabDsgn/npm-dap.nvim",
+        dir = "/mnt/DATA/dev/plugins/npm-dap.nvim"
     },
     -- UI
     {
