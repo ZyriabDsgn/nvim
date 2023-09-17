@@ -3,16 +3,15 @@ local utils = require("dap.utils")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local dap_vscode_js = require("dap-vscode-js")
+local npm_dap = require("npm-dap")
 
--- TODO: test and remap dap keybinds
 vim.keymap.set('n', '<F5>', function() dap.continue() end)
 vim.keymap.set('n', '<leader><F5>', function() dap.terminate() end)
 vim.keymap.set('n', '<F10>', function() dap.step_over() end)
 vim.keymap.set('n', '<F11>', function() dap.step_into() end)
 vim.keymap.set('n', '<F12>', function() dap.step_out() end)
 vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
-vim.keymap.set('n', '<Leader>B', function() dap.set_breakpoint() end)
-vim.keymap.set('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
 
 vim.keymap.set({ 'n', 'v' }, '<Leader>dk', function()
     widgets.hover()
@@ -38,10 +37,10 @@ dapui.setup()
 -- JS/TS
 -- See: https://github.com/mxsdev/nvim-dap-vscode-js
 dap_vscode_js.setup({
-    -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
     debugger_path = vim.fn.stdpath "data" .. "/lazy/vscode-js-debug",
-    -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
     adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
+    -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+    -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
     -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
     -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
     -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
@@ -82,32 +81,6 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
             cwd = "${workspaceFolder}",
         },
-        -- TODO: dev lua script to populate this cleanly
-        -- without taking all script
-        {
-            name = "Run script: start:backend",
-            type = "pwa-node",
-            request = "launch",
-            runtimeExecutable = "npm",
-            runtimeArgs = {
-                "run-script",
-                "start:backend"
-            },
-            -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
-            cwd = "${workspaceFolder}",
-        },
-        {
-            name = "Run script: start",
-            type = "pwa-node",
-            request = "launch",
-            runtimeExecutable = "npm",
-            runtimeArgs = {
-                "run-script",
-                "start"
-            },
-            -- outFiles = { "${workspaceFolder}/dist/**/*.js" },
-            cwd = "${workspaceFolder}",
-        },
         {
             name = "Attach",
             type = "pwa-node",
@@ -138,3 +111,5 @@ for _, language in ipairs({ "typescript", "javascript" }) do
         -- ENDOF JEST
     }
 end
+
+npm_dap.setup()
