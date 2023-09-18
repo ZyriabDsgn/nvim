@@ -6,14 +6,17 @@ vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>ft", vim.cmd.Ex)
 
 -- Toggles quickfix
-vim.keymap.set("n", "<leader>qf", function()
-        quickfix_utils.toggle()
-    end,
-    { silent = true })
+vim.keymap.set("n", "<leader>qf", function() quickfix_utils.toggle() end, { silent = true })
+
+-- Quickfix navigation
+vim.keymap.set("n", "]q", function() vim.cmd("cn") end, { silent = true })
+vim.keymap.set("n", "[q", function() vim.cmd("cp") end, { silent = true })
+vim.keymap.set("n", "]Q", function() vim.cmd("cfirst") end, { silent = true })
+vim.keymap.set("n", "[Q", function() vim.cmd("clast") end, { silent = true })
 
 -- Heavenly switcharoo
-vim.keymap.set("n", "0", "^", {noremap = true})
-vim.keymap.set("n", "^", "0", {noremap = true})
+vim.keymap.set("n", "0", "^", { noremap = true })
+vim.keymap.set("n", "^", "0", { noremap = true })
 
 -- Moving lines around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
