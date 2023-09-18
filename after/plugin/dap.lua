@@ -63,10 +63,10 @@ if not dap.adapters["pwa-node"] then
     }
 end
 
-for _, language in ipairs({ "typescript", "javascript" }) do
+for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
     local node_client = "node"
 
-    if language == "typescript" then
+    if language == "typescript" or language == "typescriptreact" then
         node_client = "ts-node"
     end
 
@@ -103,7 +103,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
         -- ENDOF NODE
         -- JEST
         {
-            name = "Debug Jest Tests",
+            name = "Debug Jest tests",
             type = "pwa-node",
             request = "launch",
             -- trace = true, -- include debugger info
