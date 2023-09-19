@@ -101,7 +101,8 @@ local plugins = {
         "tpope/vim-dadbod"
     },
     {
-        "pbogut/vim-dadbod-ssh"
+        "pbogut/vim-dadbod-ssh",
+        dependencies = { "tpope/vim-dadbod", lazy = true }
     },
     {
         "kristijanhusak/vim-dadbod-completion"
