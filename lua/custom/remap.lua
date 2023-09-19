@@ -45,8 +45,5 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 -- Automagically calls `/%s` with currently hovered word pre-entered
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- Automagically calls `/` with currently hovered workd pre-enterd
-vim.keymap.set("n", "<leader>/", [[/<C-r><C-w>/gi]])
-
 -- `chmod +x` current file
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
