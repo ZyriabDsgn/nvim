@@ -13,17 +13,47 @@ local function prettier()
     }
 end
 
+local function go_format()
+    return {
+        -- gofmt
+        function()
+            return {
+                exe = "gofmt",
+                args = { vim.api.nvim_buf_get_name(0) },
+                stdin = true
+            }
+        end,
+        -- goimports
+        function()
+            return {
+                exe = "goimports",
+                args = { vim.api.nvim_buf_get_name(0) },
+                stdin = true
+            }
+        end,
+        -- golines
+        function()
+            return {
+                exe = "golines",
+                args = { "-m", "80", vim.api.nvim_buf_get_name(0) },
+                stdin = true
+            }
+        end
+    }
+end
+
 local function organize_imports()
     local filetype = vim.bo.filetype
 
     if filetype == "typescript" or filetype == "typescriptreact"
     then
-        local params = {
+        vim.lsp.buf.execute_command({
             command = "_typescript.organizeImports",
             arguments = { vim.api.nvim_buf_get_name(0) },
             title = ""
-        }
-        vim.lsp.buf.execute_command(params)
+        })
+    elseif filetype == "go" then
+        vim.cmd("!goimports -w " .. vim.api.nvim_buf_get_name(0))
     end
 end
 
@@ -31,20 +61,12 @@ vim.keymap.set("n", "<leader>fm", function() vim.cmd("Format") end)
 vim.keymap.set("n", "<leader>imp", organize_imports)
 
 -- Format on save
-vim.api.nvim_create_augroup('format_autogroup', {clear = true})
+vim.api.nvim_create_augroup('format_autogroup', { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     group = "format_autogroup",
-    command = "FormatWrite"
+    command = "FormatWrite",
 })
-
--- TODO: remove this once the above command will be tested on enough filetypes
--- vim.api.nvim_exec([[
--- augroup FormatAutogroup
---   autocmd!
---   autocmd BufWritePost * FormatWrite
--- augroup END
--- ]], false)
 
 
 formatter.setup({
@@ -64,6 +86,7 @@ formatter.setup({
         javascript = {
             prettier
         },
+        go = go_format(),
         ["*"] = {
             fallback
         }
