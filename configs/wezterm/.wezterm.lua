@@ -21,12 +21,12 @@ if is_linux() then
     config.window_background_opacity = 0.95
 else
     config.font_size = 11.0
+    config.window_background_opacity = 0.85
 end
 
-
--- config.color_scheme_dirs = { "$HOME/.config/wezterm/colors" }
 config.color_scheme = "github_dark_colorblind"
 -- config.color_scheme = "github_light_colorblind"
+-- config.color_scheme_dirs = { "$HOME/.config/wezterm/colors" }
 
 config.leader = { key = " ", mods = "CTRL" }
 config.keys = {
