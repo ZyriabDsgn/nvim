@@ -29,7 +29,7 @@ config.color_scheme = "github_dark_colorblind"
 -- config.color_scheme = "github_light_colorblind"
 -- config.color_scheme_dirs = { "$HOME/.config/wezterm/colors" }
 
-config.leader = { key = " ", mods = "CTRL" }
+config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
     { key = "q", mods = "LEADER",     action = act.CloseCurrentPane({ confirm = true }), },
     { key = "n", mods = "SHIFT|CTRL", action = act.ToggleFullScreen, },
