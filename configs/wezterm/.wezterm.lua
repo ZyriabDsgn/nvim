@@ -13,22 +13,26 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
-config.font = wezterm.font "FiraMono Nerd Font Mono"
+config.audible_bell = "Disabled"
 
+-- Font
+config.font = wezterm.font "FiraMono Nerd Font Mono"
 if is_linux() then
     config.font_size = 10.3
 else
     config.font_size = 11.0
 end
 
-config.audible_bell = "Disabled"
-
+-- Colors
 config.window_background_opacity = 0.85
-
 config.color_scheme = "github_dark_colorblind"
--- config.color_scheme = "github_light_colorblind"
--- config.color_scheme_dirs = { "$HOME/.config/wezterm/colors" }
 
+-- Tab bar
+config.use_fancy_tab_bar = false
+config.mouse_wheel_scrolls_tabs = false
+config.show_new_tab_button_in_tab_bar = false
+
+-- Keymaps
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
     { key = "q", mods = "LEADER",     action = act.CloseCurrentPane({ confirm = true }), },
