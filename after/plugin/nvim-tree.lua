@@ -30,5 +30,10 @@ nvim_tree.setup({
     },
     view = {
         width = {}
+    },
+    git = {
+        enable = true,
+        ignore = false,
+        timeout = 500,
     }
 })
